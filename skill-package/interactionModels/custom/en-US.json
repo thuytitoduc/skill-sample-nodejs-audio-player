@@ -17,12 +17,18 @@
         },
         {
           "name": "PlayAudioIntent",
-          "slots": [],
+          "slots": [
+            {
+              "name": "SongName",
+              "type": "AMAZON.MusicRecording",
+              "samples": []
+            }
+          ],
           "samples": [
-            "start my audio",
-            "play my audio",
-            "start audio",
-            "play audio"
+            "start {SongName}",
+            "play {SongName}",
+            "start {SongName}",
+            "play {SongName}"
           ]
         },
         {

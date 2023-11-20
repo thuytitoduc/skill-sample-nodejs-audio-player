@@ -34,6 +34,9 @@ const PlayAudioIntentHandler = {
                 || Alexa.getIntentName(handlerInput.requestEnvelope) === 'AMAZON.ResumeIntent');
     },
     async handle(handlerInput) {
+        console.log("-AA---AAA-PlayAudioIntentHandler");
+        console.log(JSON.stringify(handlerInput));
+
         const playbackInfo = await getPlaybackInfo(handlerInput);
 
         const speakOutput = 'Playing the audio stream.';
