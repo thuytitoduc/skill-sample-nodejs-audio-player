@@ -26,6 +26,15 @@
           "keywords": [],
           "name": "Audioplayer sample",
           "summary": "Sample Short Description"
+        },
+        "de-DE": {
+          "description": "Sample skill using the AudioPlayer interface",
+          "examplePhrases": [
+            "alexa play alle meinen entschen in lolo lala"
+          ],
+          "keywords": [],
+          "name": "Audioplayer sample",
+          "summary": "Sample Short Description"
         }
       },
       "testingInstructions": "Sample Testing Instructions."

@@ -9,7 +9,7 @@ const Alexa = require('ask-sdk-core');
 const AWS = require('aws-sdk');
 const ddbAdapter = require('ask-sdk-dynamodb-persistence-adapter');
 const Util = require('./util.js');
-
+const serverLink = ""
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
@@ -36,30 +36,25 @@ const PlayAudioIntentHandler = {
     async handle(handlerInput) {
         console.log("-AA---AAA-PlayAudioIntentHandler--thod");
         console.log(JSON.stringify(handlerInput));
-
-        const playbackInfo = await getPlaybackInfo(handlerInput);
-
-        const speakOutput = 'Playing the audio stream.';
-        const playBehavior = 'REPLACE_ALL';
-        const podcastUrl = 'https://audio1.maxi80.com';
+        var songName = handlerInput["requestEnvelope"]["request"]["intent"]["slots"]["SongName"]["value"];
+        var songNameClean = songName.toLowerCase().replaceAll(" ","-");
+        var songURL = serverLink+songNameClean+".mp3";
         
-        /**
-         * If your audio file is located on the S3 bucket in a hosted skill, you can use the line below to retrieve a presigned URL for the audio file.
-         * https://developer.amazon.com/docs/alexa/hosted-skills/alexa-hosted-skills-media-files.html
-         * 
-         * const podcastUrl = Util.getS3PreSignedUrl("Media/audio.mp3").replace(/&/g,'&amp;');
-         * 
-         * If you cannot play your own audio in place of the sample URL, make sure your audio file adheres to the guidelines:
-         * https://developer.amazon.com/docs/alexa/custom-skills/audioplayer-interface-reference.html#audio-stream-requirements
-        */
+        const playbackInfo = await getPlaybackInfo(handlerInput);
+        console.log(JSON.stringify(playbackInfo));
+
+        const speakOutput = 'Play '+songName;
+        
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
             .addAudioPlayerPlayDirective(
-                playBehavior,
-                podcastUrl,
-                playbackInfo.token,
-                playbackInfo.offsetInMilliseconds
+                'REPLACE_ALL',
+                songURL,
+                "1",
+                null,
+                null,
+                null
                 )
             .getResponse();
     }
